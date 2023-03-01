@@ -1,3 +1,14 @@
-export default function App() {
-	return <h1>Hello!</h1>;
+import { useState } from "react";
+import Navbar from "./Components/Navbar";
+
+function App() {
+	const [books, setBooks] = useState({});
+
+	return (
+		<>
+			<Navbar setBooks={setBooks} />
+		</>
+	);
 }
+
+export default App;
