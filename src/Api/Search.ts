@@ -1,8 +1,13 @@
-type Book = {
-	numFound: number;
-};
+interface bookData {
+	title: string;
+}
 
-async function getBooksWithTitle(url: string): Promise<Book | void> | never {
+interface Book {
+	numFound: number;
+	docs: Array<bookData>;
+}
+
+async function getBooksWithTitle(url: string) {
 	try {
 		const res = await fetch(url);
 
@@ -33,7 +38,7 @@ async function Search(query: string) {
 
 	if (booksFound?.numFound !== 0) return booksFound;
 
-	return new Error("No books found");
+	console.error("No Books Found!");
 }
 
 export default Search;

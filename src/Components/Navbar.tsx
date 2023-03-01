@@ -1,10 +1,19 @@
 import Search from "../Api/Search";
 
-const Navbar = ({ setBooks }: { setBooks: (value: object) => void }) => {
+interface bookData {
+	title: string;
+}
+
+interface Book {
+	docs: Array<bookData>;
+}
+
+function Navbar({ setBooks }: { setBooks: (value: Book) => void }) {
 	async function handleSubmit(e: React.KeyboardEvent) {
 		if (e.key === "Enter") {
 			const target = e.target as HTMLInputElement;
 			const books = await Search(target.value);
+
 			if (books) setBooks(books);
 		}
 	}
@@ -22,6 +31,6 @@ const Navbar = ({ setBooks }: { setBooks: (value: object) => void }) => {
 			</form>
 		</>
 	);
-};
+}
 
 export default Navbar;
