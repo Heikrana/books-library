@@ -2,6 +2,22 @@ import { Link } from "react-router-dom";
 import { SearchSubjects as Search } from "../Api/Search";
 
 function Sidebar() {
+	const predefinedSubject = [
+		"JavaScript",
+		"Harry Potter",
+		"Indian Tradition",
+		"Cryptocurrency",
+		"Criminal Law",
+	];
+
+	const list = predefinedSubject.map((subject, idx) => {
+		return (
+			<li key={idx}>
+				<Link to={subject.toLowerCase()}>{subject}</Link>
+			</li>
+		);
+	});
+
 	return (
 		<>
 			<div>
@@ -22,23 +38,7 @@ function Sidebar() {
 						// onKeyUpCapture={(e) => handleSubmit(e)}
 					/>
 				</form>
-				<ul>
-					<li>
-						<Link to="/javascript">JavaScript</Link>
-					</li>
-					<li>
-						<Link to="/harry+potter">Harry Potter</Link>
-					</li>
-					<li>
-						<Link to="/indian+culture">Indian Culture</Link>
-					</li>
-					<li>
-						<Link to="/cryptocurrency">Cryptocurrency</Link>
-					</li>
-					<li>
-						<Link to="/criminal+law">Criminal Law</Link>
-					</li>
-				</ul>
+				<ul>{list}</ul>
 			</div>
 		</>
 	);
