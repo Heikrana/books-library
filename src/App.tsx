@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import BookList from "./Components/BookList";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
-import { SearchTitleAuthor } from "./Api/Search";
 
 export interface Book {
 	numFound: number;
@@ -16,7 +15,7 @@ function App() {
 	return (
 		<>
 			<Navbar setQuery={setQuery} />
-			<Sidebar />
+			<Sidebar setQuery={setQuery} />
 			<Routes>
 				<Route path="/" element="" />
 				<Route path=":id" element={<BookList query={query} />} />

@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { SearchSubjects as Search } from "../Api/Search";
+import SearchBar from "./SearchBar";
 
-function Sidebar() {
+function createListOfSubjects() {
 	const predefinedSubject = [
 		"JavaScript",
 		"Harry Potter",
@@ -10,13 +11,22 @@ function Sidebar() {
 		"Criminal Law",
 	];
 
-	const list = predefinedSubject.map((subject, idx) => {
+	return predefinedSubject.map((subject, idx) => {
 		return (
 			<li key={idx}>
 				<Link to={subject.toLowerCase()}>{subject}</Link>
 			</li>
 		);
 	});
+}
+
+function Sidebar({ setQuery }: { setQuery: (value: string) => void }) {
+	const list = createListOfSubjects();
+	const [formData, setFormData] = useState("");
+
+	useEffect(() => {
+		if (formData) setQuery(formData);
+	}, [formData]);
 
 	return (
 		<>
@@ -25,19 +35,10 @@ function Sidebar() {
 					<Link to="/">Home</Link>
 				</h2>
 				<h1>Trending Subjects</h1>
-				<form
-					action="#"
-					id="search"
-					onSubmit={(e) => e.preventDefault()}
-				>
-					<input
-						type="search"
-						name="search-box"
-						id="search-box"
-						placeholder="Search Subjects"
-						// onKeyUpCapture={(e) => handleSubmit(e)}
-					/>
-				</form>
+				<SearchBar
+					placeholder="Search Subject"
+					setFormData={setFormData}
+				/>
 				<ul>{list}</ul>
 			</div>
 		</>
