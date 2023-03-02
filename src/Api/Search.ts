@@ -1,18 +1,12 @@
-interface bookData {
-	title: string;
-}
+import { Book } from "../App";
 
-interface Book {
-	numFound: number;
-	docs: Array<bookData>;
-}
-
-async function getBooksWithTitle(url: string) {
+async function getBook(url: string) {
 	try {
 		const res = await fetch(url);
 
 		if (res.status === 200) {
 			const data: Book = await res.json();
+			console.log(data);
 			return data;
 		}
 
@@ -22,18 +16,15 @@ async function getBooksWithTitle(url: string) {
 	}
 }
 
-async function Search(query: string) {
-	// api call require '+' in query instead of ' ' (spaces)
-	query = query.split(" ").join("+");
-
-	let booksFound = await getBooksWithTitle(
-		`https://openlibrary.org/search.json?title=${query}`
+async function SearchTitleAuthor(query: string) {
+	let booksFound = await getBook(
+		`https://openlibrary.org/search.json?title=${query}&fields=*,availability&limit=10`
 	);
 
 	if (booksFound?.numFound !== 0) return booksFound;
 
-	booksFound = await getBooksWithTitle(
-		`https://openlibrary.org/search.json?author=${query}&sort=new`
+	booksFound = await getBook(
+		`https://openlibrary.org/search.json?author=${query}&fields=*,availability&limit=10`
 	);
 
 	if (booksFound?.numFound !== 0) return booksFound;
@@ -41,4 +32,8 @@ async function Search(query: string) {
 	console.error("No Books Found!");
 }
 
-export default Search;
+async function SearchSubjects(query: string) {
+	return "";
+}
+
+export { SearchTitleAuthor, SearchSubjects };

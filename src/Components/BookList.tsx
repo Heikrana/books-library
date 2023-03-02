@@ -1,27 +1,32 @@
-interface bookData {
-	title: string;
-}
+import { useEffect, useState } from "react";
+import { Book } from "../App";
+import { SearchTitleAuthor } from "../Api/Search";
 
-interface Book {
-	docs: Array<bookData>;
-}
+function BookList({ query }: { query: string }) {
+	const [list, setList] = useState<JSX.Element[]>([]);
+	const [books, setBooks] = useState<Book | undefined>(undefined);
 
-function BookList({ books }: { books: Book }) {
-	let list: JSX.Element[] = [];
+	useEffect(() => {
+		if (query) {
+			SearchTitleAuthor(query).then((res) => setBooks(res));
+		}
+	}, [query]);
 
-	if (books.docs) {
-		list = books.docs.map((book, idx) => {
-			return (
-				<div key={idx}>
-					<ul>
-						<li>{book.title}</li>
-					</ul>
-				</div>
+	useEffect(() => {
+		if (books?.docs) {
+			setList(
+				books.docs.map((book, idx) => {
+					return (
+						<ul key={idx}>
+							<li>{book.title}</li>
+						</ul>
+					);
+				})
 			);
-		});
-	}
+		}
+	}, [books]);
 
-	return <p>{list}</p>;
+	return <div>{list}</div>;
 }
 
 export default BookList;

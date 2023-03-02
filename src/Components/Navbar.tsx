@@ -1,20 +1,8 @@
-import Search from "../Api/Search";
-
-interface bookData {
-	title: string;
-}
-
-interface Book {
-	docs: Array<bookData>;
-}
-
-function Navbar({ setBooks }: { setBooks: (value: Book) => void }) {
-	async function handleSubmit(e: React.KeyboardEvent) {
+function Navbar({ setQuery }: { setQuery: (value: string) => void }) {
+	function handleSubmit(e: React.KeyboardEvent) {
 		if (e.key === "Enter") {
 			const target = e.target as HTMLInputElement;
-			const books = await Search(target.value);
-
-			if (books) setBooks(books);
+			setQuery(target.value);
 		}
 	}
 
