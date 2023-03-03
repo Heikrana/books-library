@@ -1,39 +1,43 @@
-import { Book } from "../App";
-
-async function getBook(url: string) {
-	try {
-		const res = await fetch(url);
-
-		if (res.status === 200) {
-			const data: Book = await res.json();
-			console.log(data);
-			return data;
-		}
-
-		throw new Error("Error fetching data");
-	} catch (err) {
-		console.error(err);
-	}
+interface BookWithTitle {
+	numFound: number;
+	docs: Array<{ title: string }>;
 }
 
-async function SearchTitleAuthor(query: string) {
-	let booksFound = await getBook(
+interface BookWithSubject {
+	work_count: number;
+	works: Array<{ title: string }>;
+}
+
+async function searchByTitle(query: string) {
+	let books: BookWithTitle = { numFound: 0, docs: [] };
+
+	await fetch(
 		`https://openlibrary.org/search.json?title=${query}&fields=*,availability&limit=10`
-	);
+	)
+		.then((res) => res.json())
+		.then((res) => (books = res))
+		.catch((err) => console.error(err));
 
-	if (booksFound?.numFound !== 0) return booksFound;
+	if (books.numFound == 0)
+		await fetch(
+			`https://openlibrary.org/search.json?author=${query}&fields=*,availability&limit=10`
+		)
+			.then((res) => res.json())
+			.then((res) => (books = res))
+			.catch((err) => console.error(err));
 
-	booksFound = await getBook(
-		`https://openlibrary.org/search.json?author=${query}&fields=*,availability&limit=10`
-	);
-
-	if (booksFound?.numFound !== 0) return booksFound;
-
-	console.error("No Books Found!");
+	return books;
 }
 
-async function SearchSubjects(query: string) {
-	return "";
+async function searchBySubject(query: string) {
+	let books: BookWithSubject = { work_count: 0, works: [] };
+
+	await fetch(`http://openlibrary.org/subjects/${query}.json`)
+		.then((res) => res.json())
+		.then((res) => (books = res))
+		.catch((err) => console.error(err));
+
+	return books;
 }
 
-export { SearchTitleAuthor, SearchSubjects };
+export { searchByTitle, searchBySubject };

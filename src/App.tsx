@@ -1,25 +1,17 @@
-import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import BookList from "./Components/BookList";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
 
-export interface Book {
-	numFound: number;
-	docs: Array<{ title: string }>;
-}
-
 function App() {
-	const [query, setQuery] = useState("");
-
 	return (
 		<>
-			<Navbar setQuery={setQuery} />
-			<Sidebar setQuery={setQuery} />
+			<Navbar />
+			<Sidebar />
 			<Routes>
 				<Route path="/" element="" />
-				<Route path=":id" element={<BookList query={query} />} />
-				<Route
+				<Route path=":domain/:name" element={<BookList />} />
+				{/* <Route
 					path="/javascript"
 					element={<BookList query={"javascript"} />}
 				/>
@@ -38,7 +30,7 @@ function App() {
 				<Route
 					path="/criminal law"
 					element={<BookList query={"criminal law"} />}
-				/>
+				/> */}
 			</Routes>
 		</>
 	);

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
@@ -20,13 +19,8 @@ function createListOfSubjects() {
 	});
 }
 
-function Sidebar({ setQuery }: { setQuery: (value: string) => void }) {
+function Sidebar() {
 	const list = createListOfSubjects();
-	const [formData, setFormData] = useState("");
-
-	useEffect(() => {
-		if (formData) setQuery(formData);
-	}, [formData]);
 
 	return (
 		<>
@@ -35,10 +29,7 @@ function Sidebar({ setQuery }: { setQuery: (value: string) => void }) {
 					<Link to="/">Home</Link>
 				</h2>
 				<h1>Trending Subjects</h1>
-				<SearchBar
-					placeholder="Search Subject"
-					setFormData={setFormData}
-				/>
+				<SearchBar placeholder="Search Subject" queryType="subject" />
 				<ul>{list}</ul>
 			</div>
 		</>
