@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap");
+
+.nav {
+	display: flex;
+	height: 7rem;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #393e46;
+	border-radius: 1rem;
+	margin: 2rem 0.5rem;
+	margin-bottom: 0;
+}
+
+.home-btn,
+.search-bar {
+	margin: 0 3rem;
+}
+
+.home-btn a {
+	font-size: 3rem;
+	font-weight: lighter;
+	color: #f98697;
+	text-decoration: none;
+	font-family: "Kalam", cursive;
+}
+
+.nav input[type="search"] {
+	border-radius: 1.5rem;
+	height: 3rem;
+	width: 20rem;
+	border: none;
+	padding: 0 1.5rem;
+	font-size: 1rem;
+	font-family: "Raleway", sans-serif;
+}
+
+.nav input[type="search"]:focus {
+	outline: none;
+}
+
+.nav .search-bar {
+	position: relative;
+}
+
+.nav .search-icon {
+	position: absolute;
+	font-size: 1.75rem;
+	right: 1rem;
+	top: 0.6rem;
+}

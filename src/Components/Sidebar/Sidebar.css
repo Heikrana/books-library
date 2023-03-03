@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap");
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	max-width: 18rem;
+	margin: 1rem 0.5rem;
+	border: 1px solid red;
+	border-radius: 1rem;
+	padding: 1rem;
+}
+
+.sidebar h1 {
+	font-size: 2rem;
+	max-width: fit-content;
+	font-family: "Raleway", sans-serif;
+}
+
+.sidebar input[type="search"] {
+	border-radius: 1.5rem;
+	height: 3rem;
+	width: 17.5rem;
+	border: none;
+	padding: 0 1rem;
+	font-size: 1rem;
+	font-family: "Raleway", sans-serif;
+	border: 2px solid #fbc0c9;
+}
+
+.sidebar input[type="search"]:focus {
+	outline: none;
+	border: 3px solid #fc8597;
+}
+
+.sidebar .search-bar {
+	position: relative;
+	margin: 0;
+}
+
+.sidebar .search-icon {
+	position: absolute;
+	font-size: 1.8rem;
+	top: 0.6rem;
+	right: 1.2rem;
+}
+
+.subject-list {
+	display: flex;
+	flex-direction: column;
+	/* flex-wrap: wrap; */
+	list-style-type: none;
+	gap: 0.75rem;
+	margin: 0;
+	padding: 0;
+}
+
+.subject-btn {
+	padding: 0.8rem;
+	border: none;
+	text-align: center;
+	/* max-width: fit-content; */
+	background-color: #ffecef;
+	border-radius: 1.5rem;
+}
+
+.subject-btn:hover {
+	background-color: #f3919f;
+	font-weight: 600;
+}
+
+.subject-list a {
+	text-decoration: none;
+	color: #251b37;
+	font-size: 1.2rem;
+	font-family: "Raleway", sans-serif;
+}

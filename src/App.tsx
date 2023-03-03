@@ -1,17 +1,19 @@
 import { Route, Routes } from "react-router-dom";
 import BookList from "./Components/BookList";
-import Navbar from "./Components/Navbar";
-import Sidebar from "./Components/Sidebar";
+import Navbar from "./Components/Navbar/Navbar";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import "./App.css";
 
 function App() {
 	return (
 		<>
 			<Navbar />
-			<Sidebar />
-			<Routes>
-				<Route path="/" element="" />
-				<Route path=":domain/:name" element={<BookList />} />
-				{/* <Route
+			<div className="main">
+				<Sidebar />
+				<Routes>
+					<Route path="/" element="" />
+					<Route path=":domain/:name" element={<BookList />} />
+					{/* <Route
 					path="/javascript"
 					element={<BookList query={"javascript"} />}
 				/>
@@ -31,7 +33,8 @@ function App() {
 					path="/criminal law"
 					element={<BookList query={"criminal law"} />}
 				/> */}
-			</Routes>
+				</Routes>
+			</div>
 		</>
 	);
 }
