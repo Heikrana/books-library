@@ -3,9 +3,13 @@ import { FiSearch } from "react-icons/fi";
 import { Form, Link } from "react-router-dom";
 import "./Sidebar.css";
 
+function formatLink(link: string) {
+	return link.split(" ").join("_").toLowerCase();
+}
+
 function createListOfSubjects() {
 	const predefinedSubject = [
-		"Indian Tradition",
+		"Psychology",
 		"Comedy",
 		"SciFi",
 		"Criminal Law",
@@ -18,8 +22,10 @@ function createListOfSubjects() {
 	];
 
 	return predefinedSubject.map((subject, idx) => {
+		// covert ' '(space) to '+' for URL link
+
 		return (
-			<Link to={subject.toLowerCase()} key={idx}>
+			<Link to={`/subject/${formatLink(subject)}`} key={idx}>
 				<li key={idx} className="subject-btn">
 					{subject}
 				</li>

@@ -21,6 +21,7 @@ function BookList() {
 	});
 
 	useEffect(() => {
+		console.log(domain, name);
 		if (domain === "book") {
 			if (name) {
 				searchByTitle(name).then((books) => {
