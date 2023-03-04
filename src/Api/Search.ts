@@ -1,6 +1,8 @@
+import { BookData } from "../Components/BookList/BookList";
+
 interface BookWithTitle {
 	numFound: number;
-	docs: Array<{ title: string }>;
+	docs: Array<BookData>;
 }
 
 interface BookWithSubject {
@@ -11,17 +13,13 @@ interface BookWithSubject {
 async function searchByTitle(query: string) {
 	let books: BookWithTitle = { numFound: 0, docs: [] };
 
-	await fetch(
-		`https://openlibrary.org/search.json?title=${query}&fields=*,availability&limit=10`
-	)
+	await fetch(`https://openlibrary.org/search.json?title=${query}`)
 		.then((res) => res.json())
 		.then((res) => (books = res))
 		.catch((err) => console.error(err));
 
 	if (books.numFound == 0)
-		await fetch(
-			`https://openlibrary.org/search.json?author=${query}&fields=*,availability&limit=10`
-		)
+		await fetch(`https://openlibrary.org/search.json?author=${query}`)
 			.then((res) => res.json())
 			.then((res) => (books = res))
 			.catch((err) => console.error(err));

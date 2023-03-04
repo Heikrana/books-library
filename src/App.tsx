@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import BookList from "./Components/BookList";
+import BookList from "./Components/BookList/BookList";
 import Navbar from "./Components/Navbar/Navbar";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import "./App.css";

@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { searchByTitle, searchBySubject } from "../Api/Search";
+import { searchByTitle, searchBySubject } from "../../Api/Search";
+import "./BookList.css";
+
+export interface BookData {
+	title: string;
+	publish_year: Array<number>;
+	first_publish_year: number;
+	author_name: Array<string>;
+}
 
 interface Book {
 	numFound?: number;
-	docs?: Array<{ title: string }>;
+	docs?: Array<BookData>;
 	work_count?: number;
 	works?: Array<{ title: string }>;
 }
@@ -21,7 +29,6 @@ function BookList() {
 	});
 
 	useEffect(() => {
-		console.log(domain, name);
 		if (domain === "book") {
 			if (name) {
 				searchByTitle(name).then((books) => {
@@ -44,9 +51,24 @@ function BookList() {
 			setList(
 				books.docs.map((book, idx) => {
 					return (
-						<ul key={idx}>
-							<li>{book.title}</li>
-						</ul>
+						<li key={idx} className="book-card">
+							<p>
+								<strong>{book.title}</strong> <br /> by{" "}
+								{/* {book.author_name[0]} */}
+							</p>
+							<p>
+								<strong>{book.title}</strong> <br /> by{" "}
+								{/* {book.author_name[0]} */}
+							</p>
+							<p>
+								<strong>{book.title}</strong> <br /> by{" "}
+								{/* {book.author_name[0]} */}
+							</p>
+							{/* <p>First Published: {book.first_publish_year}</p>
+							<p>
+								Last Published: {Math.max(...book.publish_year)}
+							</p> */}
+						</li>
 					);
 				})
 			);
@@ -54,9 +76,9 @@ function BookList() {
 			setList(
 				books.works.map((book, idx) => {
 					return (
-						<ul key={idx}>
-							<li>{book.title}</li>
-						</ul>
+						<li key={idx} className="book-card">
+							{book.title}
+						</li>
 					);
 				})
 			);
@@ -65,7 +87,11 @@ function BookList() {
 		}
 	}, [books]);
 
-	return <div>{list}</div>;
+	return (
+		<>
+			<ul className="book-list">{list}</ul>
+		</>
+	);
 }
 
 export default BookList;

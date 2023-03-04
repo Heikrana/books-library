@@ -12,6 +12,10 @@
 	margin-bottom: 0;
 }
 
+.hamburger-menu {
+	display: none;
+}
+
 .home-btn,
 .search-bar {
 	margin: 0 3rem;
@@ -19,7 +23,6 @@
 
 .home-btn a {
 	font-size: 3rem;
-	font-weight: lighter;
 	color: #f98697;
 	text-decoration: none;
 	font-family: "Kalam", cursive;
@@ -48,4 +51,41 @@
 	font-size: 1.75rem;
 	right: 1rem;
 	top: 0.6rem;
+}
+
+@media screen and (max-width: 600px) {
+	.nav {
+		height: 4rem;
+		margin: 1rem 0;
+	}
+
+	.hamburger-menu {
+		display: inherit;
+		color: white;
+		font-size: 1.2rem;
+		flex-grow: 1;
+	}
+
+	.home-btn,
+	.search-bar {
+		margin: 0 1rem;
+		flex-grow: 2;
+	}
+
+	.home-btn a {
+		font-size: 2rem;
+	}
+
+	.nav input[type="search"] {
+		display: none;
+	}
+
+	.nav .search-icon {
+		position: absolute;
+		font-size: 1.75rem;
+		color: white;
+		right: 0.5rem;
+		top: -0.85rem;
+		flex-grow: 3;
+	}
 }
