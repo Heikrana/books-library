@@ -3,33 +3,50 @@
 .book-main {
 	display: flex;
 	flex-direction: column;
-	margin: 1rem 4rem;
-	justify-content: space-between;
+	width: 100%;
 }
 
 .book-list {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: 2rem 3rem;
-	align-items: center;
+	gap: 2rem 2rem;
+	justify-content: center;
 	list-style: none;
 	padding: 0;
+	margin: 1rem 2rem;
 }
 
 .book-card {
 	text-align: center;
 	border: 1px solid #f5687d;
-	border-radius: 1rem;
+	border-radius: 0.5rem;
 	display: flex;
 	flex-direction: column;
 	font-family: "Raleway", sans-serif;
 	width: 15rem;
+	height: 100%;
+}
+
+.book-card > p:first-of-type > span {
+	font-weight: 600;
+	font-size: 1.25rem;
+}
+
+.book-card > p:last-of-type {
+	font-size: 0.8rem;
+	justify-self: end;
+}
+
+.book-card > img {
+	border-top-left-radius: 0.5rem;
+	border-top-right-radius: 0.5rem;
 }
 
 .book-btn {
 	display: flex;
 	gap: 1rem;
 	justify-content: end;
+	margin: 0.5rem 2rem;
 }
 
 .book-btn > button {
@@ -44,6 +61,10 @@
 	font-family: "Raleway", sans-serif;
 }
 
+.book-btn > button:enabled {
+	cursor: pointer;
+}
+
 .book-btn > button:enabled:hover {
 	background-color: #f3919f;
 	color: white;
@@ -53,4 +74,19 @@
 .book-btn > button:disabled {
 	border: 1px solid #f391a0ad;
 	background-color: white;
+}
+
+@media screen and (max-width: 600px) {
+	.book-main {
+		margin: 0 1rem;
+	}
+
+	.book-list {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.book-btn {
+		justify-content: center;
+	}
 }

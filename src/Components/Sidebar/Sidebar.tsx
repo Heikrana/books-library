@@ -41,7 +41,11 @@ function Sidebar() {
 	return (
 		<>
 			<div className="sidebar">
-				<Form action={`/subject/${searchTerm}`} className="search-bar">
+				<Form
+					action={`/subject/${searchTerm}`}
+					onSubmit={() => setSearchTerm("")}
+					className="search-bar"
+				>
 					<input
 						type="search"
 						id="search-box"

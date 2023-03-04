@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchByTitle, searchBySubject } from "../../Api/Search";
-import { MdSkipPrevious, MdSkipNext, MdGroupRemove } from "react-icons/md";
+import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import "./BookList.css";
 
 export interface BookData {
@@ -9,6 +9,7 @@ export interface BookData {
 	publish_year: Array<number>;
 	first_publish_year: number;
 	author_name: Array<string>;
+	subject: Array<string>;
 }
 
 interface Book {
@@ -56,26 +57,24 @@ function BookList() {
 		console.log(books.docs?.length, startIdx, endIdx);
 		if (books.numFound && books.docs && books.numFound > 0) {
 			// search by title/author
+			console.log(books.docs);
 			setList(
 				books.docs.slice(startIdx, endIdx).map((book, idx) => {
 					return (
 						<li key={idx} className="book-card">
+							<img
+								src="/public/book-cover.webp"
+								alt="book-cover"
+							/>
 							<p>
-								<strong>{book.title}</strong> <br /> by{idx}
-								{/* {book.author_name[0]} */}
+								<span>{book.title}</span> <br /> by
+								<em>{" " + book.author_name[0]}</em>
 							</p>
 							<p>
-								<strong>{book.title}</strong> <br /> by{" "}
-								{/* {book.author_name[0]} */}
-							</p>
-							<p>
-								<strong>{book.title}</strong> <br /> by{" "}
-								{/* {book.author_name[0]} */}
-							</p>
-							{/* <p>First Published: {book.first_publish_year}</p>
-							<p>
+								First Published: {book.first_publish_year}{" "}
+								<br />
 								Last Published: {Math.max(...book.publish_year)}
-							</p> */}
+							</p>
 						</li>
 					);
 				})

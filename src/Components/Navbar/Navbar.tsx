@@ -22,6 +22,7 @@ function Navbar() {
 				</div>
 				<Form
 					action={`/book/${formatLink(searchTerm)}`}
+					onSubmit={() => setSearchTerm("")}
 					className="search-bar"
 				>
 					<input
