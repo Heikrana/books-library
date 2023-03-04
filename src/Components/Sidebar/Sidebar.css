@@ -5,7 +5,7 @@
 	flex-direction: column;
 	max-width: 18rem;
 	margin: 1rem 0.5rem;
-	border: 1px solid red;
+	border: 2px solid #fc8597;
 	border-radius: 1rem;
 	padding: 1rem;
 }
@@ -63,6 +63,7 @@
 
 .subject-btn:hover {
 	background-color: #f3919f;
+	color: white;
 	font-weight: 600;
 }
 

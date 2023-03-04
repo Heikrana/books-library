@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchByTitle, searchBySubject } from "../../Api/Search";
+import { MdSkipPrevious, MdSkipNext, MdGroupRemove } from "react-icons/md";
 import "./BookList.css";
 
 export interface BookData {
@@ -20,6 +21,8 @@ interface Book {
 function BookList() {
 	const { domain, name } = useParams();
 	const [queryCompleted, setQueryCompleted] = useState(false);
+	const [startIdx, setStartIdx] = useState(0);
+	const [endIdx, setEndIdx] = useState(10);
 	const [list, setList] = useState<JSX.Element[] | JSX.Element>([]);
 	const [books, setBooks] = useState<Book>({
 		numFound: 0,
@@ -29,6 +32,9 @@ function BookList() {
 	});
 
 	useEffect(() => {
+		setStartIdx(0);
+		setEndIdx(10);
+
 		if (domain === "book") {
 			if (name) {
 				searchByTitle(name).then((books) => {
@@ -47,13 +53,15 @@ function BookList() {
 	}, [domain, name]);
 
 	useEffect(() => {
+		console.log(books.docs?.length, startIdx, endIdx);
 		if (books.numFound && books.docs && books.numFound > 0) {
+			// search by title/author
 			setList(
-				books.docs.map((book, idx) => {
+				books.docs.slice(startIdx, endIdx).map((book, idx) => {
 					return (
 						<li key={idx} className="book-card">
 							<p>
-								<strong>{book.title}</strong> <br /> by{" "}
+								<strong>{book.title}</strong> <br /> by{idx}
 								{/* {book.author_name[0]} */}
 							</p>
 							<p>
@@ -73,8 +81,9 @@ function BookList() {
 				})
 			);
 		} else if (books.work_count && books.works && books.work_count > 0) {
+			// search by subject
 			setList(
-				books.works.map((book, idx) => {
+				books.works.slice(startIdx, endIdx).map((book, idx) => {
 					return (
 						<li key={idx} className="book-card">
 							{book.title}
@@ -85,11 +94,44 @@ function BookList() {
 		} else if (queryCompleted) {
 			setList(<h1>Not Found, try search a different book or subject</h1>);
 		}
-	}, [books]);
+	}, [books, startIdx, endIdx]);
 
 	return (
 		<>
-			<ul className="book-list">{list}</ul>
+			<div className="book-main">
+				<ul className="book-list">{list}</ul>
+				{queryCompleted && (
+					<div className="book-btn">
+						<button
+							disabled={startIdx <= 0}
+							onClick={() => {
+								setStartIdx((startIdx) => startIdx - 10);
+								setEndIdx((endIdx) => endIdx - 10);
+							}}
+						>
+							<MdSkipPrevious />
+							<span>Previous</span>
+						</button>
+						<button
+							disabled={
+								!Boolean(
+									(books.docs &&
+										endIdx < books.docs.length) ||
+										(books.works &&
+											endIdx < books.works.length)
+								)
+							}
+							onClick={() => {
+								setStartIdx((startIdx) => startIdx + 10);
+								setEndIdx((endIdx) => endIdx + 10);
+							}}
+						>
+							<span>Next</span>
+							<MdSkipNext />
+						</button>
+					</div>
+				)}
+			</div>
 		</>
 	);
 }

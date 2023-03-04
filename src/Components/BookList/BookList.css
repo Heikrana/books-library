@@ -1,20 +1,56 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap");
 
+.book-main {
+	display: flex;
+	flex-direction: column;
+	margin: 1rem 4rem;
+	justify-content: space-between;
+}
+
 .book-list {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 2rem 4rem;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 2rem 3rem;
 	align-items: center;
-	padding: 0 5rem;
+	list-style: none;
+	padding: 0;
 }
 
 .book-card {
 	text-align: center;
-	border: 1px solid red;
+	border: 1px solid #f5687d;
 	border-radius: 1rem;
-	list-style: none;
-	padding: 0;
 	display: flex;
 	flex-direction: column;
 	font-family: "Raleway", sans-serif;
+	width: 15rem;
+}
+
+.book-btn {
+	display: flex;
+	gap: 1rem;
+	justify-content: end;
+}
+
+.book-btn > button {
+	display: flex;
+	gap: 0.25rem;
+	align-items: center;
+	font-size: 1.1rem;
+	padding: 0.5rem 1rem;
+	background-color: #ffecef;
+	border: none;
+	border-radius: 0.3rem;
+	font-family: "Raleway", sans-serif;
+}
+
+.book-btn > button:enabled:hover {
+	background-color: #f3919f;
+	color: white;
+	font-weight: 600;
+}
+
+.book-btn > button:disabled {
+	border: 1px solid #f391a0ad;
+	background-color: white;
 }
