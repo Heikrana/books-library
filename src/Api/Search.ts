@@ -49,7 +49,7 @@ async function searchByTitle(query: string, startIdx: number) {
 async function searchBySubject(query: string) {
 	let books: BookWithSubject = { work_count: 0, works: [] };
 
-	books = await getBooks(`http://openlibrary.org/subjects/${query}.json`);
+	books = await getBooks(`https://openlibrary.org/subjects/${query}.json`);
 
 	return books;
 }
