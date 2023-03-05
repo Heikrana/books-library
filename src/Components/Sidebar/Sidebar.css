@@ -75,7 +75,7 @@
 	font-family: "Raleway", sans-serif;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 900px) {
 	.sidebar {
 		max-width: 8rem;
 		display: none;

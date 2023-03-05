@@ -4,9 +4,10 @@
 
 .main {
 	display: flex;
+	justify-content: space-between;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 900px) {
 	.main {
 		justify-content: center;
 	}
