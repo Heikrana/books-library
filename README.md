@@ -5,7 +5,6 @@
 
 ## Table of Contents
 
--   [Table of Contents](#table-of-contents)
 -   [How to run locally](#how-to-run-locally)
 -   [API Description](#api-description)
 -   [Features](#features)
