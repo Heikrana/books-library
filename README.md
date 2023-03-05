@@ -32,6 +32,7 @@ These are free-to-use APIs and doesn't require any key or secret ID.
 -   Search book using Title/Author.
 -   Search book using Subjects.
 -   A list of trending subjects in the sidebar for easy access.
+-   Loader, displayed when books are being fetched.
 -   Only 10 books display at once, with navigation buttons to see next 10 or previous 10.
 -   Mobile friendly website.
 -   SPA so redirects happen in a breeze.
@@ -40,6 +41,7 @@ These are free-to-use APIs and doesn't require any key or secret ID.
 ## Screenshots<a name="screens"></a>
 
 Desktop View: ![Desktop View](public/Desktop-view.png)
+Loading Screen: ![Loading Screen](public/Loading.png)
 Mobile View: ![Mobile View](public/Mobile-view.png)
 
 ## Technologies Used<a name="tech-stack"></a>
