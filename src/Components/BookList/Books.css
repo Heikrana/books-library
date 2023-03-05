@@ -6,6 +6,9 @@
 
 .loader {
 	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .book-main {
@@ -109,5 +112,9 @@
 
 	.book-btn {
 		justify-content: center;
+	}
+
+	.loader {
+		height: 100vh;
 	}
 }

@@ -38,22 +38,39 @@ function List({
 							<li key={idx} className="book-card">
 								<img src="/book-cover.webp" alt="book-cover" />
 								<p>
-									<span>{formatTitle(book.title)}</span>{" "}
-									<br /> by
-									<em>{" " + book.author_name[0]}</em>
+									<span>{formatTitle(book.title)}</span>
+									<br />
+									<span>
+										by <em>{book.author_name[0]}</em>
+									</span>
 								</p>
 								<p>
-									First Published: {book.first_publish_year}{" "}
+									<span>
+										First Published:{" "}
+										{book.first_publish_year}{" "}
+									</span>
 									<br />
-									Last Published:{" "}
-									{Math.max(...book.publish_year)}
+									<span>
+										Last Published:{" "}
+										{Math.max(...book.publish_year)}
+									</span>
 								</p>
 							</li>
 						);
 					} else {
 						return (
 							<li key={idx} className="book-card">
-								<p>Book details not found. API error.</p>
+								<img src="/book-cover.webp" alt="book-cover" />
+								<p>
+									<span>Lorem ipsum dolor sit amet</span>{" "}
+									<br /> by
+									<em>Neque Convalli</em>
+								</p>
+								<p>
+									<span>First Published: 1776</span>
+									<br />
+									<span>Last Published: 2023</span>
+								</p>
 							</li>
 						);
 					}
