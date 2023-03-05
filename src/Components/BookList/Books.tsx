@@ -20,6 +20,7 @@ function Books() {
 	});
 
 	useEffect(() => {
+		console.log(domain, name);
 		setQueryCompleted(false);
 		if (domain === "book") {
 			if (name) {
