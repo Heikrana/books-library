@@ -54,29 +54,39 @@ function BookList() {
 	}, [domain, name]);
 
 	useEffect(() => {
-		console.log(books.docs?.length, startIdx, endIdx);
 		if (books.numFound && books.docs && books.numFound > 0) {
+			console.log(books.numFound, books.docs);
 			// search by title/author
-			console.log(books.docs);
 			setList(
 				books.docs.slice(startIdx, endIdx).map((book, idx) => {
-					return (
-						<li key={idx} className="book-card">
-							<img
-								src="/public/book-cover.webp"
-								alt="book-cover"
-							/>
-							<p>
-								<span>{book.title}</span> <br /> by
-								<em>{" " + book.author_name[0]}</em>
-							</p>
-							<p>
-								First Published: {book.first_publish_year}{" "}
-								<br />
-								Last Published: {Math.max(...book.publish_year)}
-							</p>
-						</li>
-					);
+					if (
+						book.title &&
+						book.author_name &&
+						book.first_publish_year &&
+						book.publish_year.length > 0
+					) {
+						return (
+							<li key={idx} className="book-card">
+								<img src="/book-cover.webp" alt="book-cover" />
+								<p>
+									<span>{book.title}</span> <br /> by
+									<em>{" " + book.author_name[0]}</em>
+								</p>
+								<p>
+									First Published: {book.first_publish_year}{" "}
+									<br />
+									Last Published:{" "}
+									{Math.max(...book.publish_year)}
+								</p>
+							</li>
+						);
+					} else {
+						return (
+							<li key={idx} className="book-card">
+								<p>Book details not found. API error.</p>
+							</li>
+						);
+					}
 				})
 			);
 		} else if (books.work_count && books.works && books.work_count > 0) {
@@ -98,7 +108,6 @@ function BookList() {
 	return (
 		<>
 			<div className="book-main">
-				<ul className="book-list">{list}</ul>
 				{queryCompleted && (
 					<div className="book-btn">
 						<button
@@ -130,6 +139,10 @@ function BookList() {
 						</button>
 					</div>
 				)}
+				<p>
+					Showing books {startIdx + 1} - {endIdx}
+				</p>
+				<ul className="book-list">{list}</ul>
 			</div>
 		</>
 	);

@@ -3,13 +3,26 @@
 .book-main {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	gap: 0.3rem;
+	margin-top: 1rem;
 	width: 100%;
+}
+
+.book-main > * {
+	margin: 0 auto;
+	font-family: "Raleway", sans-serif;
+}
+
+.book-main > p {
+	color: rgb(116, 114, 114);
+	font-style: italic;
 }
 
 .book-list {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: 2rem 2rem;
+	gap: 1.5rem 2rem;
 	justify-content: center;
 	list-style: none;
 	padding: 0;
@@ -18,13 +31,15 @@
 
 .book-card {
 	text-align: center;
-	border: 1px solid #f5687d;
+	border: 1px solid #eee8e8;
 	border-radius: 0.5rem;
 	display: flex;
 	flex-direction: column;
-	font-family: "Raleway", sans-serif;
+	justify-content: space-between;
+	justify-self: center;
 	width: 15rem;
 	height: 100%;
+	box-shadow: 0 8px 10px #dbb3b9e8;
 }
 
 .book-card > p:first-of-type > span {
@@ -38,15 +53,18 @@
 }
 
 .book-card > img {
+	height: 10rem;
+	object-fit: cover;
 	border-top-left-radius: 0.5rem;
 	border-top-right-radius: 0.5rem;
 }
 
 .book-btn {
 	display: flex;
-	gap: 1rem;
+	gap: 1.5rem;
 	justify-content: end;
 	margin: 0.5rem 2rem;
+	padding: 0 1rem;
 }
 
 .book-btn > button {
@@ -56,9 +74,8 @@
 	font-size: 1.1rem;
 	padding: 0.5rem 1rem;
 	background-color: #ffecef;
-	border: none;
+	border: 1px solid #f2c9cfad;
 	border-radius: 0.3rem;
-	font-family: "Raleway", sans-serif;
 }
 
 .book-btn > button:enabled {
@@ -72,18 +89,14 @@
 }
 
 .book-btn > button:disabled {
-	border: 1px solid #f391a0ad;
+	border: 1px solid #f5b3bdad;
 	background-color: white;
 }
 
 @media screen and (max-width: 600px) {
-	.book-main {
-		margin: 0 1rem;
-	}
-
 	.book-list {
 		grid-template-columns: 1fr;
-		gap: 1rem;
+		gap: 1.5rem;
 	}
 
 	.book-btn {

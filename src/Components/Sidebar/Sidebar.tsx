@@ -22,8 +22,6 @@ function createListOfSubjects() {
 	];
 
 	return predefinedSubject.map((subject, idx) => {
-		// covert ' '(space) to '+' for URL link
-
 		return (
 			<Link to={`/subject/${formatLink(subject)}`} key={idx}>
 				<li key={idx} className="subject-btn">

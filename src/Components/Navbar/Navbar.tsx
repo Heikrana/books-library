@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Form, Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
-import { RxHamburgerMenu } from "react-icons/rx";
 import "./Navbar.css";
 
 function formatLink(searchTerm: string) {
@@ -13,8 +12,7 @@ function Navbar() {
 
 	return (
 		<>
-			<div className="nav">
-				<RxHamburgerMenu className="hamburger-menu" />
+			<nav>
 				<div className="home-btn">
 					<h1>
 						<Link to="/">BookFreak</Link>
@@ -32,9 +30,11 @@ function Navbar() {
 						placeholder="Search Books by Title or Author"
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
-					<FiSearch className="search-icon" />
+					<div className="search-icon">
+						<FiSearch />
+					</div>
 				</Form>
-			</div>
+			</nav>
 		</>
 	);
 }
