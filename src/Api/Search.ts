@@ -1,4 +1,4 @@
-import { BookData } from "../Components/BookList/BookList";
+import { BookData, SubjectData } from "../Components/BookList/BookList";
 
 interface BookWithTitle {
 	numFound: number;
@@ -7,7 +7,7 @@ interface BookWithTitle {
 
 interface BookWithSubject {
 	work_count: number;
-	works: Array<{ title: string }>;
+	works: Array<SubjectData>;
 }
 
 async function searchByTitle(query: string) {

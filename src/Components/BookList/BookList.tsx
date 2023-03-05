@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchByTitle, searchBySubject } from "../../Api/Search";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
+import { Circles } from "react-loader-spinner";
 import "./BookList.css";
 
 export interface BookData {
@@ -12,11 +13,17 @@ export interface BookData {
 	subject: Array<string>;
 }
 
+export interface SubjectData {
+	title: string;
+	authors: Array<{ name: string }>;
+	first_publish_year: number;
+}
+
 interface Book {
 	numFound?: number;
 	docs?: Array<BookData>;
 	work_count?: number;
-	works?: Array<{ title: string }>;
+	works?: Array<SubjectData>;
 }
 
 function BookList() {
@@ -55,7 +62,6 @@ function BookList() {
 
 	useEffect(() => {
 		if (books.numFound && books.docs && books.numFound > 0) {
-			console.log(books.numFound, books.docs);
 			// search by title/author
 			setList(
 				books.docs.slice(startIdx, endIdx).map((book, idx) => {
@@ -95,7 +101,12 @@ function BookList() {
 				books.works.slice(startIdx, endIdx).map((book, idx) => {
 					return (
 						<li key={idx} className="book-card">
-							{book.title}
+							<img src="/book-cover.webp" alt="book-cover" />
+							<p>
+								<span>{book.title}</span> <br /> by
+								<em>{" " + book.authors[0].name}</em>
+							</p>
+							<p>First Published: {book.first_publish_year} </p>
 						</li>
 					);
 				})
@@ -107,8 +118,19 @@ function BookList() {
 
 	return (
 		<>
-			<div className="book-main">
-				{queryCompleted && (
+			<div className={`loader ${queryCompleted && "hide"}`}>
+				<Circles
+					height="160"
+					width="160"
+					color="#fc8597"
+					ariaLabel="circles-loading"
+					wrapperStyle={{}}
+					wrapperClass=""
+					visible={true}
+				/>
+			</div>
+			{queryCompleted && (
+				<div className="book-main">
 					<div className="book-btn">
 						<button
 							disabled={startIdx <= 0}
@@ -138,12 +160,12 @@ function BookList() {
 							<MdSkipNext />
 						</button>
 					</div>
-				)}
-				<p>
-					Showing books {startIdx + 1} - {endIdx}
-				</p>
-				<ul className="book-list">{list}</ul>
-			</div>
+					<p>
+						Showing books {startIdx + 1} - {endIdx}
+					</p>
+					<ul className="book-list">{list}</ul>
+				</div>
+			)}
 		</>
 	);
 }
