@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arizonia&display=swap");
 
 nav {
 	display: flex;
@@ -21,10 +21,10 @@ nav {
 }
 
 .home-btn a {
-	font-size: 3rem;
-	color: #f98697;
+	font-size: 4rem;
+	color: #f3667b;
 	text-decoration: none;
-	font-family: "Kalam", cursive;
+	font-family: "Arizonia", cursive;
 }
 
 nav input[type="search"] {
