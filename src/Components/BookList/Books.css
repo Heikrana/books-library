@@ -30,6 +30,12 @@
 	font-style: italic;
 }
 
+.book-main > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .book-list {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
@@ -38,6 +44,18 @@
 	list-style: none;
 	padding: 0;
 	margin: 1rem 2rem;
+}
+
+.content {
+	margin-left: 6rem;
+}
+
+.content > p {
+	font-size: 2.5rem;
+	margin-left: 2.5rem;
+	margin-bottom: 0;
+	font-weight: 600;
+	font-family: "Raleway", sans-serif;
 }
 
 .book-card {
@@ -53,7 +71,7 @@
 	box-shadow: 0 8px 10px #dbb3b9e8;
 }
 
-.book-card > p:first-of-type > span {
+.book-card > p:first-of-type > span:first-of-type {
 	font-weight: 600;
 	font-size: 1.25rem;
 }
@@ -116,5 +134,15 @@
 
 	.loader {
 		height: 100vh;
+	}
+
+	.content {
+		margin-left: 2rem;
+	}
+
+	.content > p {
+		font-size: 3rem;
+		margin-left: 0;
+		text-align: center;
 	}
 }

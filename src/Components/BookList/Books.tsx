@@ -20,12 +20,10 @@ function Books() {
 	});
 
 	useEffect(() => {
-		setStartIdx(0);
-		setEndIdx(10);
-
+		setQueryCompleted(false);
 		if (domain === "book") {
 			if (name) {
-				searchByTitle(name).then((books) => {
+				searchByTitle(name, startIdx).then((books) => {
 					setQueryCompleted(true);
 					setBooks(books);
 				});
@@ -38,7 +36,7 @@ function Books() {
 				});
 			}
 		}
-	}, [domain, name]);
+	}, [domain, name, startIdx]);
 
 	return (
 		<>
@@ -53,50 +51,62 @@ function Books() {
 					visible={true}
 				/>
 			</div>
-			{queryCompleted && (
-				<div className="book-main">
-					<div className="book-btn">
-						<button
-							disabled={startIdx <= 0}
-							onClick={() => {
-								setStartIdx((startIdx) => startIdx - 10);
-								setEndIdx((endIdx) => endIdx - 10);
-							}}
-						>
-							<MdSkipPrevious />
-							<span>Previous</span>
-						</button>
-						<button
-							disabled={
-								!Boolean(
-									(books.docs &&
-										endIdx < books.docs.length) ||
-										(books.works &&
-											endIdx < books.works.length)
-								)
-							}
-							onClick={() => {
-								setStartIdx((startIdx) => startIdx + 10);
-								setEndIdx((endIdx) => endIdx + 10);
-							}}
-						>
-							<span>Next</span>
-							<MdSkipNext />
-						</button>
+			<div className="content">
+				{domain === "subject" && <p>{name?.toUpperCase()}</p>}
+				{queryCompleted && (
+					<div className="book-main">
+						{domain === "book" && (
+							<div>
+								<div className="book-btn">
+									<button
+										disabled={startIdx <= 0}
+										onClick={() => {
+											setStartIdx(
+												(startIdx) => startIdx - 10
+											);
+											setEndIdx((endIdx) => endIdx - 10);
+											setQueryCompleted(false);
+										}}
+									>
+										<MdSkipPrevious />
+										<span>Previous</span>
+									</button>
+									<button
+										disabled={
+											!Boolean(
+												(books.numFound &&
+													endIdx < books.numFound) ||
+													(books.work_count &&
+														endIdx <
+															books.work_count)
+											)
+										}
+										onClick={() => {
+											setStartIdx(
+												(startIdx) => startIdx + 10
+											);
+											setEndIdx((endIdx) => endIdx + 10);
+											setQueryCompleted(false);
+										}}
+									>
+										<span>Next</span>
+										<MdSkipNext />
+									</button>
+								</div>
+								<p>
+									Showing books {startIdx + 1} - {endIdx}
+								</p>
+							</div>
+						)}
+						<ul className="book-list">
+							<List
+								queryCompleted={queryCompleted}
+								books={books}
+							/>
+						</ul>
 					</div>
-					<p>
-						Showing books {startIdx + 1} - {endIdx}
-					</p>
-					<ul className="book-list">
-						<List
-							queryCompleted={queryCompleted}
-							books={books}
-							startIdx={startIdx}
-							endIdx={endIdx}
-						/>
-					</ul>
-				</div>
-			)}
+				)}
+			</div>
 		</>
 	);
 }

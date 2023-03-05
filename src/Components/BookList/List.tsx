@@ -13,13 +13,9 @@ function formatTitle(formatTitle: string) {
 function List({
 	queryCompleted,
 	books,
-	startIdx,
-	endIdx,
 }: {
 	queryCompleted: Boolean;
 	books: Book;
-	startIdx: number;
-	endIdx: number;
 }) {
 	const [list, setList] = useState<JSX.Element[] | JSX.Element>([]);
 
@@ -27,7 +23,7 @@ function List({
 		if (books.numFound && books.docs && books.numFound > 0) {
 			// search by title/author
 			setList(
-				books.docs.slice(startIdx, endIdx).map((book, idx) => {
+				books.docs.map((book, idx) => {
 					if (
 						book.title &&
 						book.author_name &&
@@ -63,8 +59,10 @@ function List({
 								<img src="/book-cover.webp" alt="book-cover" />
 								<p>
 									<span>Lorem ipsum dolor sit amet</span>{" "}
-									<br /> by
-									<em>Neque Convalli</em>
+									<br />
+									<span>
+										by <em>Neque Convalli</em>
+									</span>
 								</p>
 								<p>
 									<span>First Published: 1776</span>
@@ -79,23 +77,50 @@ function List({
 		} else if (books.work_count && books.works && books.work_count > 0) {
 			// search by subject
 			setList(
-				books.works.slice(startIdx, endIdx).map((book, idx) => {
-					return (
-						<li key={idx} className="book-card">
-							<img src="/book-cover.webp" alt="book-cover" />
-							<p>
-								<span>{formatTitle(book.title)}</span> <br /> by
-								<em>{" " + book.authors[0].name}</em>
-							</p>
-							<p>First Published: {book.first_publish_year} </p>
-						</li>
-					);
+				books.works.slice(0, 10).map((book, idx) => {
+					if (
+						book.title &&
+						book.authors.length > 0 &&
+						book.first_publish_year
+					) {
+						return (
+							<li key={idx} className="book-card">
+								<img src="/book-cover.webp" alt="book-cover" />
+								<p>
+									<span>{formatTitle(book.title)}</span>{" "}
+									<br />
+									<span>
+										by <em>{" " + book.authors[0].name}</em>
+									</span>
+								</p>
+								<p>
+									First Published: {book.first_publish_year}{" "}
+								</p>
+							</li>
+						);
+					} else {
+						return (
+							<li key={idx} className="book-card">
+								<img src="/book-cover.webp" alt="book-cover" />
+								<p>
+									<span>Lorem ipsum dolor sit amet</span>{" "}
+									<br />
+									<span>
+										by <em>Neque Convalli</em>
+									</span>
+								</p>
+								<p>
+									<span>First Published: 1776</span>
+								</p>
+							</li>
+						);
+					}
 				})
 			);
 		} else if (queryCompleted) {
 			setList(<h1>Not Found, try search a different book or subject</h1>);
 		}
-	}, [books, startIdx, endIdx]);
+	}, [books]);
 
 	return <>{list}</>;
 }

@@ -10,19 +10,38 @@ interface BookWithSubject {
 	works: Array<SubjectData>;
 }
 
-async function searchByTitle(query: string) {
+async function getBooks(url: string) {
+	let data = undefined;
+
+	try {
+		const cache = localStorage[url];
+
+		if (cache) {
+			data = JSON.parse(cache);
+		} else {
+			const res = await fetch(url);
+			data = await res.json();
+			localStorage[url] = JSON.stringify(data);
+		}
+	} catch (err) {
+		console.error(err);
+	}
+
+	return data;
+}
+
+async function searchByTitle(query: string, startIdx: number) {
 	let books: BookWithTitle = { numFound: 0, docs: [] };
 
-	await fetch(`https://openlibrary.org/search.json?title=${query}`)
-		.then((res) => res.json())
-		.then((res) => (books = res))
-		.catch((err) => console.error(err));
+	books = await getBooks(
+		`https://openlibrary.org/search.json?title=${query}&limit=10&offset=${startIdx}`
+	);
 
-	if (books.numFound == 0)
-		await fetch(`https://openlibrary.org/search.json?author=${query}`)
-			.then((res) => res.json())
-			.then((res) => (books = res))
-			.catch((err) => console.error(err));
+	if (books.numFound > 0) return books;
+
+	books = await getBooks(
+		`https://openlibrary.org/search.json?author=${query}&limit=10&offset=${startIdx}`
+	);
 
 	return books;
 }
@@ -30,10 +49,7 @@ async function searchByTitle(query: string) {
 async function searchBySubject(query: string) {
 	let books: BookWithSubject = { work_count: 0, works: [] };
 
-	await fetch(`http://openlibrary.org/subjects/${query}.json`)
-		.then((res) => res.json())
-		.then((res) => (books = res))
-		.catch((err) => console.error(err));
+	books = await getBooks(`http://openlibrary.org/subjects/${query}.json`);
 
 	return books;
 }
