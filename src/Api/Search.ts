@@ -1,4 +1,4 @@
-import { BookData, SubjectData } from "../Components/BookList/BookList";
+import { BookData, SubjectData } from "../App";
 
 interface BookWithTitle {
 	numFound: number;
